@@ -108,12 +108,15 @@ void game_reset(game_t *g)
  * Paddle control + ball launch
  * ------------------------------------------------------------------------ */
 
-/* Clamp the paddle inside the field given its current length. */
+/* Clamp the paddle inside the field given its current length. A small margin
+ * keeps the paddle off the very top/bottom edges so it is not clipped by the
+ * panel's visible-area overscan. */
 static void paddle_clamp(game_t *g)
 {
-    game_fp_t half = GAME_FP(g->paddle.length / 2);
-    game_fp_t top  = half;
-    game_fp_t bot  = GAME_FP(GAME_SCREEN_H) - half;
+    game_fp_t half   = GAME_FP(g->paddle.length / 2);
+    game_fp_t margin = GAME_FP(GAME_EDGE_MARGIN);
+    game_fp_t top    = half + margin;
+    game_fp_t bot    = GAME_FP(GAME_SCREEN_H) - half - margin;
 
     if (g->paddle.y < top) {
         g->paddle.y = top;

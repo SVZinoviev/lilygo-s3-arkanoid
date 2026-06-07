@@ -55,6 +55,10 @@ extern "C" {
 
 #define GAME_BALL_RADIUS       3     /* fixed ball radius in px */
 
+/* Safe inset from the top/bottom edges. Keeps the paddle clear of the panel's
+ * non-visible overscan rows so it is never clipped at the extremes. */
+#define GAME_EDGE_MARGIN       4
+
 #define GAME_LIVES_DEFAULT     3
 
 /* --------------------------------------------------------------------------
